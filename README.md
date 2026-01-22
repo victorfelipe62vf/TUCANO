@@ -29,6 +29,6 @@ O TUCANO é operacionalizado em um fluxo de preparação de dados limpo e transp
 Como material complementar, disponibilizamos um chat baseado em IA (NotebookLM) treinado nas fontes oficiais do projeto:
 [Acessar Assistente TUCANO](https://notebooklm.google.com/notebook/d259b94e-b3e7-418b-94f9-ed1d1b74be5a)
 
-## 📄 Citação
+## Citação
 Se utilizar este workflow, por favor cite:
-> LIMA, Victor Felipe Mendanha de. **TUCANO: Técnicas Unificadas de Categorização e Análise de Notícias Online**. UFMG, 2025.
+> LIMA, VFM & Soriani, FM. **TUCANO: Técnicas Unificadas de Categorização e Análise de Notícias Online**. UFMG, 2025.
