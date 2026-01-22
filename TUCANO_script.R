@@ -1,7 +1,7 @@
 ############################################################
-# Pipeline NOME
+# TUCANO - Técnicas Unificadas de Categorização e Análise de Notícias Online
 # Autor: Victor Felipe M. de Lima & Frederico Marianetti Soriani
-# Repositório de dados modelo: LINK
+# Repositório de dados modelo: https://doi.org/10.5281/zenodo.18332852
 ############################################################
 
 ############################################################
@@ -440,3 +440,4 @@ for(i in seq_along(linhas)){
   cex_i <- ifelse(i == 1, 2, 1.3)  # título maior
   text(0.5, ys[i], linhas[i], cex = cex_i)
 } }
+
