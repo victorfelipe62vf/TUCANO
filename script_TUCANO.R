@@ -171,7 +171,7 @@ print(dim(dfm_titulos))} #Aqui vai aparecer a quantidade de notícias análisada
 # 6.6 Matriz termo-documento (TDM) – apenas transposição
 {tdm_titulos <- t(dfm_titulos)
 cat("\nDimensões da matriz termo-documento (tdm_titulos):\n")
-print(dim(tdm_titulos))}
+print(dim(tdm_titulos))} #Aqui vai aparecer a quantidade de termos análisados e a quantidade de notícias análisadas
 
 ############################################################
 # 7. FREQUÊNCIA DE TERMOS ISOLADOS
@@ -500,5 +500,6 @@ for(i in seq_along(linhas)){
   cex_i <- ifelse(i == 1, 2, 1.3)  # título maior
   text(0.5, ys[i], linhas[i], cex = cex_i)
 } }
+
 
 
