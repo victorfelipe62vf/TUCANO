@@ -132,6 +132,13 @@ dados_unicos$ano <- format(dados_unicos$publish_date, "%Y")
 cat("\nDistribuição de notícias por ano:\n")
 print(table(dados_unicos$ano))}
 
+#5.3 RESUMO DOS VEICULOS (MEDIA_NAME) PÓS FILTRAGEM
+# Esta parte serve para você quantificar quantas notícias tem por veículo, após filtrar.
+{tempbase <- dados_unicos %>%
+    count(media_name, sort = TRUE)
+  cat("\nResumo dos veículos (media_name) e número de notícias:\n")
+  print(tempbase)}
+
 ############################################################
 # 6. PREPARAÇÃO DOS TÍTULOS (CORPUS E TOKENS)
 ############################################################
@@ -307,6 +314,59 @@ quanteda.textplots::textplot_network(
   min_freq = min_freq_network
 ) #Pode demorar um pouco, mas este é seu principal resultado
 
+#################################################################################
+#### OPCIONAL ##### REDE MISTA: TERMOS ESPECÍFICOS (ANCORA) + ENTORNO FREQUENTE (OPCIONAL)
+#################################################################################
+Caso queira fazer uma rede como a anterior ancorando termos específicos
+
+# Parâmetros
+{min_freq_network <- 500   # frequência mínima dos termos do entorno
+min_cooc_plot    <- 15    # coocorrência mínima para aparecer na rede
+
+# Termos-âncora
+termos_ancora <- c(
+  "dna", "genetica", "mutacoes", "mutacao", "rna", "genoma",
+  "mrna", "gene", "genetico", "sequenciamento", "genes", "pcr", 
+  "geneticos", "genomas", "biologia", "geneticas", "sequenciou",
+  "sequenciar", "moleculares", "rt-pcr", "mutante", "proteina", "genomica",
+  "proteinas", "geneticamente", "recombinante", "genomico", 
+  "sequenciados", "geneticista", "microrna"
+) ##termos modelo, PODE SER ALTERADO COM BASE NOS TERMOS DE INTERESSE 
+
+# Termos frequentes do corpus
+termos_frequentes <- freq %>%
+  filter(frequency >= min_freq_network) %>%
+  pull(feature)
+
+# Garantir que os termos existam na FCM
+termos_ancora   <- intersect(termos_ancora, featnames(fcm_small))
+termos_frequentes <- intersect(termos_frequentes, featnames(fcm_small))
+
+# 1. Extrair coocorrências envolvendo termos ancora
+m <- as.matrix(fcm_small[termos_ancora, , drop = FALSE])
+
+# 2. Identificar termos que coocorrem com os termos ancora
+termos_vizinhos <- colnames(m)[colSums(m) > 0]
+
+# 3. Interseção: vizinhança + termos frequentes + termos ancora
+termos_rede <- unique(c(
+  termos_ancora,
+  intersect(termos_vizinhos, termos_frequentes)
+))
+
+# 4. Sub-FCM final
+fcm_ancora_context <- fcm_select(
+  fcm_small,
+  pattern   = termos_rede,
+  selection = "keep"
+)
+
+# 5. Plot da rede
+quanteda.textplots::textplot_network(
+  fcm_ancora_context,
+  min_freq = min_cooc_plot
+)}
+
 ############################################################
 # 12. CORRELAÇÃO ENTRE TERMOS (FREQUÊNCIA POR DOCUMENTO)
 ############################################################
@@ -440,3 +500,4 @@ for(i in seq_along(linhas)){
   cex_i <- ifelse(i == 1, 2, 1.3)  # título maior
   text(0.5, ys[i], linhas[i], cex = cex_i)
 } }
+
