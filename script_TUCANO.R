@@ -315,7 +315,7 @@ quanteda.textplots::textplot_network(
 ) #Pode demorar um pouco, mas este é seu principal resultado
 
 #################################################################################
-#### OPCIONAL ##### REDE MISTA: TERMOS ESPECÍFICOS (ANCORA) + ENTORNO FREQUENTE (OPCIONAL)
+# 11.OP #### OPCIONAL ##### REDE MISTA: TERMOS ESPECÍFICOS (ANCORA) + ENTORNO FREQUENTE (OPCIONAL)
 #################################################################################
 Caso queira fazer uma rede como a anterior ancorando termos específicos
 
@@ -500,4 +500,5 @@ for(i in seq_along(linhas)){
   cex_i <- ifelse(i == 1, 2, 1.3)  # título maior
   text(0.5, ys[i], linhas[i], cex = cex_i)
 } }
+
 
